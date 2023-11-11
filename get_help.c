@@ -1,9 +1,9 @@
 #include "shell.h"
 
 /**
- * get_help - function that retrieves help messages according builtin
- * @datash: data structure (args and input)
- * Return: Return 0
+ * get_help - function that retrieves help messages according to builtin
+ * @datash: data struct (args and input)
+ * Return: 0
 */
 int get_help(data_shell *datash)
 {
@@ -33,13 +33,12 @@ int get_help(data_shell *datash)
 }
 
 /**
- * rev_string - reverses a string.
- * @s: input string.
- * Return: no return.
+ * rev_string - function that reverses a string
+ * @s: input string
  */
 void rev_string(char *s)
 {
-	int count = 0, i, j;
+	int count = 0, p, q;
 	char *str, temp;
 
 	while (count >= 0)
@@ -50,13 +49,13 @@ void rev_string(char *s)
 	}
 	str = s;
 
-	for (i = 0; i < (count - 1); i++)
+	for (p = 0; p < (count - 1); p++)
 	{
-		for (j = i + 1; j > 0; j--)
+		for (q = p + 1; q > 0; q--)
 		{
-			temp = *(str + j);
-			*(str + j) = *(str + (j - 1));
-			*(str + (j - 1)) = temp;
+			temp = *(str + q);
+			*(str + q) = *(str + (q - 1));
+			*(str + (q - 1)) = temp;
 		}
 	}
 }
