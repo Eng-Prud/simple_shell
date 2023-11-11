@@ -1,24 +1,24 @@
 #include "shell.h"
 
 /**
- * _strtok - splitsstring by some delimiter
+ * _strtok - function that splits string by some delimiter
  * @str: input string
  * @delim: delimiter
- * Return: string splited
+ * Return: split string
  */
 char *_strtok(char str[], const char *delim)
 {
 	static char *splitted, *str_end;
 	char *str_start;
-	unsigned int i, bool;
+	unsigned int p, bool;
 
 	if (str != NULL)
 	{
 		if (cmp_chars(str, delim))
 			return (NULL);
 		splitted = str; /*Store first address*/
-		i = _strlen(str);
-		str_end = &str[i]; /*Store last address*/
+		p = _strlen(str);
+		str_end = &str[p]; /*Store last address*/
 	}
 	str_start = splitted;
 	if (str_start == str_end) /*Reaching the end*/
@@ -31,9 +31,9 @@ char *_strtok(char str[], const char *delim)
 			if (*splitted && *(splitted - 1) == '\0')
 				break;
 		/*Replacing delimiter for null char*/
-		for (i = 0; delim[i]; i++)
+		for (p = 0; delim[p]; p++)
 		{
-			if (*splitted == delim[i])
+			if (*splitted == delim[p])
 			{
 				*splitted = '\0';
 				if (splitted == str_start)
@@ -50,63 +50,63 @@ char *_strtok(char str[], const char *delim)
 }
 
 /**
- * _isdigit - define if string passed is a number
+ * _isdigit - define if string passed is a num
  * @s: input string
- * Return: 1 if string is a number 0 if otherwise
+ * Return: 1 if string is a num 0 if otherwise
  */
 int _isdigit(const char *s)
 {
-	unsigned int i;
+	unsigned int p;
 
-	for (i = 0; s[i]; i++)
+	for (p = 0; s[p]; p++)
 	{
-		if (s[i] < 48 || s[i] > 57)
+		if (s[p] < 48 || s[p] > 57)
 			return (0);
 	}
 	return (1);
 }
 
 /**
- * check_env - checks if the typed variable is an env variable
+ * check_env - function that checks if the typed variable is an env variable
  * @h: head of linked list
  * @in: input string
- * @data: data structure
+ * @data: data struct
  */
 void check_env(r_var **h, char *in, data_shell *data)
 {
-	int row, chr, j, lval;
+	int row, chr, p, lval;
 	char **_envr;
 
 	_envr = data->_environ;
 	for (row = 0; _envr[row]; row++)
 	{
-		for (j = 1, chr = 0; _envr[row][chr]; chr++)
+		for (p = 1, chr = 0; _envr[row][chr]; chr++)
 		{
 			if (_envr[row][chr] == '=')
 			{
 				lval = _strlen(_envr[row] + chr + 1);
-				add_rvar_node(h, j, _envr[row] + chr + 1, lval);
+				add_rvar_node(h, p, _envr[row] + chr + 1, lval);
 				return;
 			}
 
-			if (in[j] == _envr[row][chr])
-				j++;
+			if (in[p] == _envr[row][chr])
+				p++;
 			else
 				break;
 		}
 	}
 
-	for (j = 0; in[j]; j++)
+	for (p = 0; in[p]; p++)
 	{
-		if (in[j] == ' ' || in[j] == '\t' || in[j] == ';' || in[j] == '\n')
+		if (in[p] == ' ' || in[p] == '\t' || in[p] == ';' || in[p] == '\n')
 			break;
 	}
 
-	add_rvar_node(h, j, NULL, 0);
+	add_rvar_node(h, p, NULL, 0);
 }
 
 /**
- * bring_line - assigns the line var for get_line
+ * bring_line - function that assigns the line var for get_line
  * @lineptr: Buffer that store the input str
  * @buffer: str that is been called to line
  * @n: size of line
@@ -139,15 +139,15 @@ void bring_line(char **lineptr, size_t *n, char *buffer, size_t j)
 	}
 }
 /**
- * get_line - Read input from stream
+ * get_line - function that reads input from stream
  * @lineptr: buffer that stores input
  * @n: size of lineptr
  * @stream: stream to read from
- * Return: The number of bytes
+ * Return: num of bytes
  */
 ssize_t get_line(char **lineptr, size_t *n, FILE *stream)
 {
-	int i;
+	int p;
 	static ssize_t input;
 	ssize_t retval;
 	char *buffer;
@@ -164,13 +164,13 @@ ssize_t get_line(char **lineptr, size_t *n, FILE *stream)
 		return (-1);
 	while (t != '\n')
 	{
-		i = read(STDIN_FILENO, &t, 1);
-		if (i == -1 || (i == 0 && input == 0))
+		p = read(STDIN_FILENO, &t, 1);
+		if (p == -1 || (p == 0 && input == 0))
 		{
 			free(buffer);
 			return (-1);
 		}
-		if (i == 0 && input != 0)
+		if (p == 0 && input != 0)
 		{
 			input++;
 			break;
@@ -183,7 +183,7 @@ ssize_t get_line(char **lineptr, size_t *n, FILE *stream)
 	buffer[input] = '\0';
 	bring_line(lineptr, n, buffer, input);
 	retval = input;
-	if (i != 0)
+	if (p != 0)
 		input = 0;
 	return (retval);
 }
