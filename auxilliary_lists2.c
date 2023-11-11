@@ -1,13 +1,13 @@
 #include "shell.h"
 
 /**
- * add_rvar_node - adds a variable at the end
- * of a r_var list.
- * @link_head: head of the linked list.
- * @length_var: length of the variable.
- * @val_var: value of the variable.
- * @length_val: length of the value.
- * Return: address of the head.
+ * add_rvar_node - function that adds a variable at the end
+ * of a r_var list
+ * @link_head: head of the linked list
+ * @length_var: length of the var
+ * @val_var: value of the var
+ * @length_val: length of the value
+ * Return: address of the head
  */
 r_var *add_rvar_node(r_var **link_head, int length_var, char *val_var,
 		int length_val)
@@ -40,9 +40,8 @@ r_var *add_rvar_node(r_var **link_head, int length_var, char *val_var,
 }
 
 /**
- * free_rvar_list - frees a r_var list
- * @link_head: head of the linked list.
- * Return: no return.
+ * free_rvar_list - function that frees a r_var list
+ * @link_head: head of linked list
  */
 void free_rvar_list(r_var **link_head)
 {
