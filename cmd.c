@@ -1,9 +1,9 @@
 #include "shell.h"
 
 /**
- * is_cdir - checks ":" if is in the current directory.
- * @path: type char pointer char
- * @i: type int pointer of inde.
+ * is_cdir - function that checks ":" if is in the current directory
+ * @path: type char ptr char
+ * @i: type int ptr of inde
  * Return: 1 if the path is searchable in the cd
  */
 int is_cdir(char *path, int *i)
@@ -23,15 +23,15 @@ int is_cdir(char *path, int *i)
 }
 
 /**
- * _which - locates a command
+ * _which - function that locates a command
  * @cmd: command name
- * @_environ: environment variable
+ * @_environ: environment var
  * Return: location of the command
  */
 char *_which(char *cmd, char **_environ)
 {
 	char *path, *ptr_path, *token_path, *dir;
-	int len_dir, len_cmd, i;
+	int len_dir, len_cmd, p;
 	struct stat st;
 
 	path = _getenv("PATH", _environ);
@@ -40,10 +40,10 @@ char *_which(char *cmd, char **_environ)
 		ptr_path = _strdup(path);
 		len_cmd = _strlen(cmd);
 		token_path = _strtok(ptr_path, ":");
-		i = 0;
+		p = 0;
 		while (token_path != NULL)
 		{
-			if (is_cdir(path, &i))
+			if (is_cdir(path, &p))
 				if (stat(cmd, &st) == 0)
 					return (cmd);
 			len_dir = _strlen(token_path);
@@ -72,51 +72,51 @@ char *_which(char *cmd, char **_environ)
 }
 
 /**
- * is_executable - determines if is an executable
+ * is_executable - function that determines if is an executable
  * @datash: data struct
  * Return: 0 if is not an executable
  */
 int is_executable(data_shell *datash)
 {
 	struct stat st;
-	int i;
+	int p;
 	char *input;
 
 	input = datash->args[0];
-	for (i = 0; input[i]; i++)
+	for (p = 0; input[p]; p++)
 	{
-		if (input[i] == '.')
+		if (input[p] == '.')
 		{
-			if (input[i + 1] == '.')
+			if (input[p + 1] == '.')
 				return (0);
-			if (input[i + 1] == '/')
+			if (input[p + 1] == '/')
 				continue;
 			else
 				break;
 		}
-		else if (input[i] == '/' && i != 0)
+		else if (input[p] == '/' && p != 0)
 		{
-			if (input[i + 1] == '.')
+			if (input[p + 1] == '.')
 				continue;
-			i++;
+			p++;
 			break;
 		}
 		else
 			break;
 	}
-	if (i == 0)
+	if (p == 0)
 		return (0);
 
-	if (stat(input + i, &st) == 0)
+	if (stat(input + p, &st) == 0)
 	{
-		return (i);
+		return (p);
 	}
 	get_error(datash, 127);
 	return (-1);
 }
 
 /**
- * check_error_cmd - verifies if user has permissions to access
+ * check_error_cmd - function that verifies if user has permissions to access
  * @dir: destination directory
  * @datash: data struct
  * Return: 1 if there is an error, 0 if not
