@@ -1,9 +1,9 @@
 #include "shell.h"
 
 /**
- * get_builtin - builtin that pairs command in arg
+ * get_builtin - function of builtin that pairs command in arg
  * @cmd: command
- * Return: function pointer of the builtin command
+ * Return: function ptr of builtin command
  */
 int (*get_builtin(char *cmd))(data_shell *)
 {
@@ -16,13 +16,13 @@ int (*get_builtin(char *cmd))(data_shell *)
 		{ "help", get_help },
 		{ NULL, NULL }
 	};
-	int i;
+	int p;
 
-	for (i = 0; builtin[i].name; i++)
+	for (p = 0; builtin[p].name; p++)
 	{
-		if (_strcmp(builtin[i].name, cmd) == 0)
+		if (_strcmp(builtin[p].name, cmd) == 0)
 			break;
 	}
 
-	return (builtin[i].f);
+	return (builtin[p].f);
 }
