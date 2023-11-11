@@ -1,24 +1,24 @@
 #include "shell.h"
 
 /**
- * _memcpy - copies info
+ * _memcpy - function that copies info
  * @newptr: destination ptr
  * @ptr: source ptr
- * @size: size of the new ptr
+ * @size: size of new ptr
  */
 void _memcpy(void *newptr, const void *ptr, unsigned int size)
 {
 	char *char_ptr = (char *)ptr;
 	char *char_newptr = (char *)newptr;
-	unsigned int i;
+	unsigned int p;
 
-	for (i = 0; i < size; i++)
-		char_newptr[i] = char_ptr[i];
+	for (p = 0; p < size; p++)
+		char_newptr[p] = char_ptr[p];
 }
 
 /**
- * aux_itoa - Converts int to string.
- * @n: type int no
+ * aux_itoa - function that converts int to string
+ * @n: type int num
  * Return: String
  */
 char *aux_itoa(int n)
@@ -55,7 +55,7 @@ char *aux_itoa(int n)
 }
 
 /**
- * get_sigint - Handle the crtl + c call in prompt
+ * get_sigint - function that handle the crtl + c call in prompt
  * @sig: Signal handler
  */
 void get_sigint(int sig)
@@ -65,62 +65,61 @@ void get_sigint(int sig)
 }
 
 /**
- * get_len - Get the lenght of a number.
- * @n: type int number.
- * Return: Lenght of a number.
+ * get_len - function that get the length of a num
+ * @n: type int number
+ * Return: Len of a num
  */
 int get_len(int n)
 {
-	unsigned int n1;
+	unsigned int q;
 	int lenght = 1;
 
 	if (n < 0)
 	{
 		lenght++;
-		n1 = n * -1;
+		q = n * -1;
 	}
 	else
 	{
-		n1 = n;
+		q = n;
 	}
-	while (n1 > 9)
+	while (q > 9)
 	{
 		lenght++;
-		n1 = n1 / 10;
+		q = q / 10;
 	}
 
 	return (lenght);
 }
 
 /**
- * without_comment - deletes comments from the input
- *
+ * without_comment - function that deletes comments from the input
  * @in: input string
  * Return: input without comments
  */
 char *without_comment(char *in)
 {
-	int i, up_to;
+	int p, up_to;
 
 	up_to = 0;
-	for (i = 0; in[i]; i++)
+	for (p = 0; in[p]; p++)
 	{
-		if (in[i] == '#')
+		if (in[p] == '#')
 		{
-			if (i == 0)
+			if (p == 0)
 			{
 				free(in);
 				return (NULL);
 			}
 
-			if (in[i - 1] == ' ' || in[i - 1] == '\t' || in[i - 1] == ';')
-				up_to = i;
+			if (in[p - 1] == ' ' || in[p - 1] == '\t' || in[p - 1] == ';')
+				up_to = p;
 		}
 	}
 
 	if (up_to != 0)
 	{
-		in = _realloc(in, i, up_to + 1);
+		in = _realloc(in, p, up_to + 1);
 		in[up_to] = '\0';
 	}
 
