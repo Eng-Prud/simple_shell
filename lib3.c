@@ -1,10 +1,10 @@
 #include "shell.h"
 
 /**
- * first_char - finds index of first char
+ * first_char - function that finds index of first char
  * @input: input string
  * @i: index
- * Return: 1 if there is an error 0 in other case.
+ * Return: 1 for error 0 in other case
  */
 int first_char(char *input, int *i)
 {
@@ -25,7 +25,7 @@ int first_char(char *input, int *i)
 
 
 /**
- * shell_loop - Loop of shell
+ * shell_loop - function, Loop of shell
  * @datash: data relevant
  */
 void shell_loop(data_shell *datash)
@@ -64,8 +64,8 @@ void shell_loop(data_shell *datash)
 }
 
 /**
- * split_commands - splits command lines according to the separators ;, |
- * and &, and executes them
+ * split_commands - function that splits command lines according to the
+ * separators ;, | and &, and executes them
  * @datash: data struct
  * @input: input string
  * Return: 0 to exit, 1 to continue
@@ -75,7 +75,7 @@ int split_commands(data_shell *datash, char *input)
 
 	sep_list *head_s, *list_s;
 	line_list *head_l, *list_l;
-	int loop;
+	int loop2;
 
 	head_s = NULL;
 	head_l = NULL;
@@ -89,10 +89,10 @@ int split_commands(data_shell *datash, char *input)
 	{
 		datash->input = list_l->line;
 		datash->args = split_line(datash->input);
-		loop = exec_line(datash);
+		loop2 = exec_line(datash);
 		free(datash->args);
 
-		if (loop == 0)
+		if (loop2 == 0)
 			break;
 
 		go_next(&list_s, &list_l, datash);
@@ -104,13 +104,13 @@ int split_commands(data_shell *datash, char *input)
 	free_sep_list(&head_s);
 	free_line_list(&head_l);
 
-	if (loop == 0)
+	if (loop2 == 0)
 		return (0);
 	return (1);
 }
 
 /**
- * read_line - reads the input string
+ * read_line - function that reads the input string
  * @i_eof: return value of getline function
  * Return: input string
  */
@@ -125,43 +125,42 @@ char *read_line(int *i_eof)
 }
 
 /**
- * check_vars - check if the typed variable is $$ or $?
- *
+ * check_vars - function that checks if the typed variable is $$ or $?
  * @h: head of the linked list
  * @in: input string
  * @st: last status of the Shell
- * @data: data structure
- * Return: no return
+ * @data: data struct
+ * Return: p
  */
 int check_vars(r_var **h, char *in, char *st, data_shell *data)
 {
-	int i, lst, lpd;
+	int p, lst, lpd;
 
 	lst = _strlen(st);
 	lpd = _strlen(data->pid);
 
-	for (i = 0; in[i]; i++)
+	for (p = 0; in[p]; p++)
 	{
-		if (in[i] == '$')
+		if (in[p] == '$')
 		{
-			if (in[i + 1] == '?')
-				add_rvar_node(h, 2, st, lst), i++;
-			else if (in[i + 1] == '$')
-				add_rvar_node(h, 2, data->pid, lpd), i++;
-			else if (in[i + 1] == '\n')
+			if (in[p + 1] == '?')
+				add_rvar_node(h, 2, st, lst), p++;
+			else if (in[p + 1] == '$')
+				add_rvar_node(h, 2, data->pid, lpd), p++;
+			else if (in[p + 1] == '\n')
 				add_rvar_node(h, 0, NULL, 0);
-			else if (in[i + 1] == '\0')
+			else if (in[p + 1] == '\0')
 				add_rvar_node(h, 0, NULL, 0);
-			else if (in[i + 1] == ' ')
+			else if (in[p + 1] == ' ')
 				add_rvar_node(h, 0, NULL, 0);
-			else if (in[i + 1] == '\t')
+			else if (in[p + 1] == '\t')
 				add_rvar_node(h, 0, NULL, 0);
-			else if (in[i + 1] == ';')
+			else if (in[p + 1] == ';')
 				add_rvar_node(h, 0, NULL, 0);
 			else
-				check_env(h, in + i, data);
+				check_env(h, in + p, data);
 		}
 	}
 
-	return (i);
+	return (p);
 }
