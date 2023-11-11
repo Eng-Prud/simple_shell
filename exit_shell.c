@@ -1,24 +1,24 @@
 #include "shell.h"
 
 /**
- * exit_shell - exit shell
+ * exit_shell - function that exit shell
  * @datash: data relevant
- * Return: 0 on success
+ * Return: 0, success
  */
 int exit_shell(data_shell *datash)
 {
 	unsigned int ustatus;
-	int is_digit;
-	int str_len;
-	int big_number;
+	int digit;
+	int len;
+	int big_num;
 
 	if (datash->args[1] != NULL)
 	{
 		ustatus = _atoi(datash->args[1]);
-		is_digit = _isdigit(datash->args[1]);
-		str_len = _strlen(datash->args[1]);
-		big_number = ustatus > (unsigned int)INT_MAX;
-		if (!is_digit || str_len > 10 || big_number)
+		digit = _isdigit(datash->args[1]);
+		len = _strlen(datash->args[1]);
+		big_num = ustatus > (unsigned int)INT_MAX;
+		if (!digit || len > 10 || big_num)
 		{
 			get_error(datash, 2);
 			datash->status = 2;
