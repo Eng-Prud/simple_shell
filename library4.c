@@ -5,16 +5,16 @@
  * @head: of the linked list
  * @input: input string
  * @new_input: new input string
- * @newl: new length
+ * @nlen: new length
  * Return: replaced string
  */
-char *replaced_input(r_var **head, char *input, char *new_input, int newl)
+char *replaced_input(r_var **head, char *input, char *new_input, int nlen)
 {
 	r_var *indx;
 	int i, j, k;
 
 	indx = *head;
-	for (j = i = 0; i < newl; i++)
+	for (j = i = 0; i < nlen; i++)
 	{
 		if (input[j] == '$')
 		{
@@ -54,12 +54,12 @@ char *replaced_input(r_var **head, char *input, char *new_input, int newl)
 /**
  * add_nodes - add separators and command lines in the lists
  *
- * @head_sp: head of separator list
- * @head_ls: head of command lines list
+ * @head_s: head of separator list
+ * @head_l: head of command lines list
  * @input: input string
  * Return: no return
  */
-void add_nodes(sep_list **head_sp, line_list **head_ls, char *input)
+void add_nodes(sep_list **head_s, line_list **head_l, char *input)
 {
 	int i;
 	char *line;
@@ -69,11 +69,11 @@ void add_nodes(sep_list **head_sp, line_list **head_ls, char *input)
 	for (i = 0; input[i]; i++)
 	{
 		if (input[i] == ';')
-			add_sep_node_end(head_sp, input[i]);
+			add_sep_node_end(head_s, input[i]);
 
 		if (input[i] == '|' || input[i] == '&')
 		{
-			add_sep_node_end(head_sp, input[i]);
+			add_sep_node_end(head_s, input[i]);
 			i++;
 		}
 	}
@@ -130,7 +130,7 @@ char **split_line(char *input)
 }
 
 /**
- * exec_line - find  commands and builtins.
+ * exec_line - find builtins and commands
  * @datash: data relevant
  * Return: 1 on success
  */
@@ -151,7 +151,7 @@ int exec_line(data_shell *datash)
 
 /**
  * cmd_exec - executes command lines
- * @datash: relevant data
+ * @datash: data relevant
  * Return: 1 on success
  */
 int cmd_exec(data_shell *datash)
