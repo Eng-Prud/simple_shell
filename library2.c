@@ -82,7 +82,7 @@ int error_sep_op(char *input, int i, char last)
 }
 
 /**
- * print_syntax_error - prints when there’s a syntax error 
+ * print_syntax_error - prints when there’s a syntax error
  * @datash: data struct
  * @input: input string
  * @i: index of the error

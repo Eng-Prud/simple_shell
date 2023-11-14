@@ -1,7 +1,7 @@
 #include "shell.h"
 /**
- * get_error – gets the error according the syntax ,permission or builtin.
- * @datash: data struct 
+ * get_error – gets the error according the syntax permission or builtin
+ * @datash: data struct
  * @eval: error value
  * Return: error
  */
