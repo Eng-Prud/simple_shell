@@ -1,9 +1,9 @@
 #include "shell.h"
 
 /**
- * error_env –message env error.
+ * error_env - message env error
  * @datash: relevant data
- * Return: messege error.
+ * Return: messege error
  */
 
 char *error_env(data_shell *datash)
